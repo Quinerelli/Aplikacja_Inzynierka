@@ -18,6 +18,7 @@ export const me = () => api.get("/auth/me");
 export const logout = () => api.post("/auth/logout");
 
 // === FAMILIES ===
-export const createFamily = (name) => api.post("/families", { name });
+export const createFamily = (name, members) =>
+    api.post("/families", { name, members });
 
 export const getMyFamilies = () => api.get("/families/me");

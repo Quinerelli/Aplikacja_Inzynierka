@@ -1,0 +1,92 @@
+.app-layout {
+    min-height: 100vh;
+    background: #f6fff9;
+    font-family: system-ui;
+    color: #143f32;
+}
+
+/* Header */
+.app-header {
+    height: 64px;
+    background: #ffffff;
+    border-bottom: 1px solid #e6f2eb;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+}
+
+/* Left */
+.app-header-left {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.app-logo-icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+    background: #00c97e;
+}
+
+.app-logo-text {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.app-nav {
+    display: flex;
+    gap: 20px;
+}
+
+.app-nav-link {
+    color: #5d7b6a;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.app-nav-link.active {
+    font-weight: 600;
+    color: #1a8f62;
+}
+
+/* Right */
+.app-header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.app-user-email {
+    font-size: 13px;
+    color: #7c9b8d;
+}
+
+.app-user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    background: #ffc48a;
+    color: #7a4313;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+
+.app-logout-btn {
+    background: #ffffff;
+    border: 1px solid #d7e8df;
+    border-radius: 999px;
+    padding: 6px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #1a8f62; /* ✔ zielony, widoczny */
+    font-weight: 600;
+}
+
+.app-logout-btn:hover {
+    background: #e9f9f2;
+}
+

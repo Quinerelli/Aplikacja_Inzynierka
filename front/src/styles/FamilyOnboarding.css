@@ -168,9 +168,11 @@
     background-color: #f4fff6;
     padding: 10px 12px;
     font-size: 14px;
+    color: #234034;            /* ✅ ciemny tekst */
     outline: none;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
+
 
 .fam-input::placeholder {
     color: #9ab3a7;
@@ -241,10 +243,23 @@
 }
 
 .fam-member-name {
+    width: 100%;
+    padding: 6px 10px;
+    margin-top: 4px;
+    border-radius: 10px;
+    border: 1px solid #d9e9df;
+    background-color: #f4fff6; /* ✅ jasne tło jak family name */
     font-size: 14px;
     font-weight: 600;
-    color: #234034;
+    color: #234034;            /* ✅ ciemny tekst */
+    text-align: center;
+    outline: none;
 }
+
+.fam-member-name::placeholder {
+    color: #9ab3a7;
+}
+
 
 .fam-member-role-row {
     display: flex;
@@ -256,7 +271,9 @@
     width: 18px;
     height: 18px;
     border-radius: 4px;
+    border: 1px solid #c6ddd2;  /* ✔ delikatna ramka, widoczne na jasnym tle */
 }
+
 
 .fam-color-dot-green {
     background: #b8f2d5;
@@ -268,11 +285,20 @@
 
 .fam-role-select {
     border-radius: 10px;
-    border: 1px solid #cfded4;
-    padding: 6px 10px;
-    font-size: 13px;
-    background: #ffffff;
+    border: 1px solid #d9e9df;
+    padding: 8px 12px;
+    font-size: 14px;
+    background-color: #f4fff6;   /* ✔ jasne tło */
+    color: #234034;              /* ✔ czytelny, ciemny tekst */
+    outline: none;
+    cursor: pointer;
 }
+
+.fam-role-select:focus {
+    border-color: #2ecc8e;
+    box-shadow: 0 0 0 3px rgba(46, 204, 142, 0.25);
+}
+
 
 .fam-member-icons {
     display: flex;
@@ -343,4 +369,61 @@
     opacity: 0.7;
     cursor: default;
     box-shadow: none;
+}
+
+/* przycisk usuń w karcie członka */
+.fam-member-delete-btn {
+    margin-top: 6px;
+    border: none;
+    background: transparent;
+    color: #b84040;
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.fam-member-delete-btn:hover {
+    color: #ff0000;
+}
+
+/* żeby karta Add New Member zachowywała się jak przycisk */
+.fam-add-member-click {
+    cursor: pointer;
+}
+
+.fam-logout-btn {
+    border: 1px solid #d6e6dd;
+    background: #ffffff;
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 13px;
+    color: #647f74;
+    cursor: pointer;
+}
+
+.fam-logout-btn:hover {
+    background: #f5faf6;
+    color: #1a8f62;
+}
+
+.fam-member-delete-btn {
+    margin-top: 6px;
+    border: none;
+    background: transparent;
+    font-size: 12px;
+    color: #d9534f;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.fam-member-delete-btn:hover {
+    color: #b52b27;
+}
+
+.fam-add-member-click {
+    cursor: pointer;
+}
+
+.fam-add-member-click:focus {
+    outline: none;
 }

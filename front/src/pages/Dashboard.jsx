@@ -1,136 +1,70 @@
 // src/pages/Dashboard.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { me, logout } from "../api/auth.js";
+import { me, getMyFamilies } from "../api/auth.js";
+import "../styles/Dashboard.css";
 
 export default function Dashboard() {
     const nav = useNavigate();
     const [userEmail, setUserEmail] = useState("");
 
     useEffect(() => {
-        me()
-            .then((res) => setUserEmail(res.data.user?.email || ""))
-            .catch(() => nav("/login"));
+        async function load() {
+            try {
+                const meRes = await me();
+                const user = meRes.data.user;
+                if (!user) {
+                    nav("/login");
+                    return;
+                }
+                setUserEmail(user.email || "");
+
+                const skip = localStorage.getItem("fh_skip_onboarding") === "1";
+                const famRes = await getMyFamilies();
+                const hasFamily =
+                    Array.isArray(famRes.data.families) &&
+                    famRes.data.families.length > 0;
+
+                if (!hasFamily && !skip) {
+                    nav("/onboarding");
+                }
+            } catch (err) {
+                console.error("dashboard load error", err);
+                nav("/login");
+            }
+        }
+
+        load();
     }, [nav]);
 
-    async function handleLogout() {
-        await logout();
-        nav("/login");
-    }
-
     return (
-        <div style={{ minHeight: "100vh", background: "#f6fff9", padding: "30px" }}>
-            <header
-                style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    marginBottom: "30px",
-                }}
-            >
-                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                    <div
-                        style={{
-                            width: "28px",
-                            height: "28px",
-                            borderRadius: "8px",
-                            backgroundColor: "#00c97e",
-                        }}
-                    />
-                    <span style={{ fontWeight: 700, fontSize: "20px" }}>FamilyHub</span>
-                </div>
-                <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                    {userEmail && (
-                        <span style={{ fontSize: "14px", color: "#555" }}>{userEmail}</span>
-                    )}
-                    <button
-                        onClick={handleLogout}
-                        style={{
-                            background: "transparent",
-                            border: "1px solid #ccc",
-                            borderRadius: "999px",
-                            padding: "6px 14px",
-                            cursor: "pointer",
-                            fontSize: "13px",
-                        }}
-                    >
-                        Logout
-                    </button>
-                </div>
-            </header>
-
-            <main>
-                <h1 style={{ fontSize: "24px", marginBottom: "10px" }}>
-                    Welcome back 👋
-                </h1>
-                <p style={{ color: "#666", marginBottom: "24px" }}>
+        <div className="dash-page">
+            <main className="dash-main">
+                <h1 className="dash-main-title">Welcome back 👋</h1>
+                <p className="dash-main-subtitle">
                     Here you’ll manage your family tasks, expenses and rewards.
                 </p>
 
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-                        gap: "18px",
-                    }}
-                >
-                    <div
-                        style={{
-                            background: "white",
-                            borderRadius: "18px",
-                            padding: "18px",
-                            boxShadow: "0 6px 18px rgba(0,0,0,0.06)",
-                        }}
-                    >
-                        <h2 style={{ fontSize: "18px", marginBottom: "8px" }}>
-                            Household tasks
-                        </h2>
-                        <p style={{ fontSize: "14px", color: "#666", marginBottom: "12px" }}>
+                <div className="dash-grid">
+                    <section className="dash-card">
+                        <h2 className="dash-card-title">Household tasks</h2>
+                        <p className="dash-card-text">
                             Create tasks, assign them to family members and track progress.
                         </p>
-                        <button
-                            style={{
-                                background: "#ff7b00",
-                                color: "white",
-                                border: "none",
-                                borderRadius: "999px",
-                                padding: "8px 16px",
-                                fontSize: "14px",
-                                cursor: "pointer",
-                            }}
-                        >
+                        <button className="dash-card-btn dash-card-btn-primary">
                             Go to tasks (later)
                         </button>
-                    </div>
+                    </section>
 
-                    <div
-                        style={{
-                            background: "white",
-                            borderRadius: "18px",
-                            padding: "18px",
-                            boxShadow: "0 6px 18px rgba(0,0,0,0.06)",
-                        }}
-                    >
-                        <h2 style={{ fontSize: "18px", marginBottom: "8px" }}>
-                            Family finances
-                        </h2>
-                        <p style={{ fontSize: "14px", color: "#666", marginBottom: "12px" }}>
+                    <section className="dash-card">
+                        <h2 className="dash-card-title">Family finances</h2>
+                        <p className="dash-card-text">
                             Add shared expenses and keep track of your home budget.
                         </p>
-                        <button
-                            style={{
-                                background: "#04bb7a",
-                                color: "white",
-                                border: "none",
-                                borderRadius: "999px",
-                                padding: "8px 16px",
-                                fontSize: "14px",
-                                cursor: "pointer",
-                            }}
-                        >
+                        <button className="dash-card-btn dash-card-btn-secondary">
                             Go to finances (later)
                         </button>
-                    </div>
+                    </section>
                 </div>
             </main>
         </div>
